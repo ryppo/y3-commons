@@ -10,10 +10,8 @@ import java.util.Properties;
  * <p>Title: org.y3.commons - PropertiesHelper</p>
  * <p>Description: Utilities to support management of properties object </p>
  * <p>Copyright: 2014</p>
- * <p>Company: SE Bordnetze GmbH</p>
- * <p>Department: CIT SC GSD</p>
+ * <p>Organisation: IT-Happens.de</p>
  * @author Christian.Rybotycky
- * @version $Id$
 */
 public class PropertiesHelper {
 
