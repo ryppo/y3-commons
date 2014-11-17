@@ -57,10 +57,11 @@ public abstract class IApplication {
                     UIManager.getSystemLookAndFeelClassName());
             //setup logging
             PropertyConfigurator.configure(getClass().getResourceAsStream(getLoggerPropertiesLocation()));
+            logger = Logger.getLogger(getClass());
             //setup user properties
             File userPropertiesFile = new File(getUserPropertiesLocation());
             if (!userPropertiesFile.exists()) {
-                Logger.getLogger(getClass()).debug("User properties file does not exist at: " + getUserPropertiesLocation());
+                LOG().debug("User properties file does not exist at: " + getUserPropertiesLocation());
                 userProperties = new Properties();
                 PropertiesHelper.saveProperties(userProperties, getUserPropertiesLocation(), true);
             }
