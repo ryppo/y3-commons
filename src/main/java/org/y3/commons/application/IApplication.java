@@ -38,6 +38,8 @@ public abstract class IApplication {
     
     public abstract String getResourceBundleLocation();
     
+    public abstract String getApplicationName();
+    
     public static Logger LOG() {
         return logger;
     }
@@ -55,6 +57,9 @@ public abstract class IApplication {
             // Set System L&F
             UIManager.setLookAndFeel(
                     UIManager.getSystemLookAndFeelClassName());
+            // OS X menu bar
+            System.setProperty("com.apple.mrj.application.apple.menu.about.name", getApplicationName());
+            System.setProperty("apple.laf.useScreenMenuBar", "true");
             //setup logging
             PropertyConfigurator.configure(getClass().getResourceAsStream(getLoggerPropertiesLocation()));
             logger = Logger.getLogger(getClass());

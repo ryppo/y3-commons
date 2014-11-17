@@ -32,5 +32,11 @@
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.7.7</version>
         </dependency>
+        <dependency>
+            <groupId>com.almworks.sqlite4java</groupId>
+            <artifactId>sqlite4java</artifactId>
+            <version>1.0.392</version>
+            <!-- https://code.google.com/p/sqlite4java/ -->
+        </dependency>
     </dependencies>
 </project>
