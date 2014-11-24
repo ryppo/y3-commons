@@ -82,6 +82,8 @@ public abstract class IApplication {
     }
     
     public abstract void prepare();
+    
+    public abstract void beforeShutDown();
 
     /**
      * Receive shut down listener object which manages the application shut down operations

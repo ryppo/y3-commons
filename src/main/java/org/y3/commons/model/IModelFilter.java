@@ -7,6 +7,6 @@ package org.y3.commons.model;
  * <p>Organisation: IT-Happens.de</p>
  * @author Christian.Rybotycky
  */
-public class IModelFilter {
+public interface IModelFilter {
     
 }
