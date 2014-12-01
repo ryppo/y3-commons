@@ -1,7 +1,5 @@
 package org.y3.commons.model;
 
-import com.almworks.sqlite4java.SQLiteStatement;
-
 /** 
  * <p>Title: org.y3.commons.model - IModelMapper</p>
  * <p>Description: </p>
@@ -9,12 +7,14 @@ import com.almworks.sqlite4java.SQLiteStatement;
  * <p>Organisation: IT-Happens.de</p>
  * @author Christian.Rybotycky
  */
-public abstract class IModelMapper {
+public interface IModelMapper {
     
-    public abstract String getModelSelectSql(IModelFilter filter);
+    public String getModelSelectSql(IModelFilter filter);
     
-    public abstract String getModelsSelectSql(IModelFilter filter);
+    public String getModelsSelectSql(IModelFilter filter);
     
-    public abstract IModel mapSqliteStatementToModel(SQLiteStatement stmt);
+    public IModelList createModelList();
+    
+    public IModel createModel();
     
 }

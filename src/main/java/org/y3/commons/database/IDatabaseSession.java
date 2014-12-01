@@ -1,5 +1,6 @@
 package org.y3.commons.database;
 
+import java.sql.SQLException;
 import org.y3.commons.model.IModel;
 import org.y3.commons.model.IModelFilter;
 import org.y3.commons.model.IModelList;
@@ -21,9 +22,9 @@ public abstract class IDatabaseSession {
      */
     public abstract void connect(String databaseLocation) throws Exception;
     
-    public abstract boolean isConnected();
+    public abstract boolean isConnected() throws SQLException;
     
-    public abstract void disconnect();
+    public abstract void disconnect() throws SQLException;
     
     public abstract IModel loadModel(IModelMapper mapper, IModelFilter filter) throws Exception;
     
