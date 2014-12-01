@@ -3,10 +3,12 @@ package org.y3.commons.database;
 import com.almworks.sqlite4java.SQLiteConnection;
 import com.almworks.sqlite4java.SQLiteStatement;
 import java.io.File;
+import java.sql.SQLException;
 import org.y3.commons.model.IModel;
 import org.y3.commons.model.IModelFilter;
 import org.y3.commons.model.IModelList;
 import org.y3.commons.model.IModelMapper;
+import org.y3.commons.model.ISqlite4JavaModelMapper;
 
 /** 
  * <p>Title: org.y3.brain.database - SqlLite4JavaDatabase</p>
@@ -29,7 +31,7 @@ public class SqlLite4JavaDatabase extends IDatabaseSession {
     }
 
     @Override
-    public boolean isConnected() {
+    public boolean isConnected() throws SQLException {
         if (sqlite != null && sqlite.isOpen()) {
             return true;
         } else {
@@ -38,7 +40,7 @@ public class SqlLite4JavaDatabase extends IDatabaseSession {
     }
 
     @Override
-    public void disconnect() {
+    public void disconnect() throws SQLException {
         if (sqlite != null) {
             if (sqlite.isOpen()) {
                 sqlite.dispose();
@@ -48,28 +50,34 @@ public class SqlLite4JavaDatabase extends IDatabaseSession {
     }
 
     @Override
-    public IModel loadModel(IModelMapper mapper, IModelFilter filter) throws Exception {
+    public IModel loadModel(IModelMapper _mapper, IModelFilter filter) throws Exception {
         IModel model = null;
-        String sql = mapper.getModelSelectSql(filter);
-        SQLiteStatement stmt = sqlite.prepare(sql);
-        stmt.bindNull(null);
-        if (stmt.step()) {
-            model = mapper.mapSqliteStatementToModel(stmt);
+        if (_mapper instanceof ISqlite4JavaModelMapper) {
+            ISqlite4JavaModelMapper mapper = (ISqlite4JavaModelMapper) _mapper;
+            String sql = mapper.getModelSelectSql(filter);
+            SQLiteStatement stmt = sqlite.prepare(sql);
+            stmt.bindNull(null);
+            if (stmt.step()) {
+                model = mapper.map(stmt);
+            }
         }
         return model;
     }
 
     @Override
-    public IModelList loadModels(IModelMapper mapper, IModelFilter filter) throws Exception {
+    public IModelList loadModels(IModelMapper _mapper, IModelFilter filter) throws Exception {
         IModelList models = null;
-        String sql = mapper.getModelsSelectSql(filter);
-        SQLiteStatement stmt = sqlite.prepare(sql);
-        stmt.bindNull(null);
-        while (stmt.step()) {
-            if (models == null) {
-                models = new IModelList();
+        if (_mapper instanceof ISqlite4JavaModelMapper) {
+            ISqlite4JavaModelMapper mapper = (ISqlite4JavaModelMapper) _mapper;
+            String sql = mapper.getModelsSelectSql(filter);
+            SQLiteStatement stmt = sqlite.prepare(sql);
+            stmt.bindNull(null);
+            while (stmt.step()) {
+                if (models == null) {
+                    models = new IModelList();
+                }
+                models.add(mapper.map(stmt));
             }
-            models.add(mapper.mapSqliteStatementToModel(stmt));
         }
         return models;
     }
