@@ -9,17 +9,17 @@ import org.y3.commons.model.IModelList;
 import org.y3.commons.model.IModelMapper;
 
 /** 
- * <p>Title: org.y3.brain.database - SqlLiteDatabase</p>
+ * <p>Title: org.y3.brain.database - SqlLite4JavaDatabase</p>
  * <p>Description: </p>
  * <p>Copyright: 2014</p>
  * <p>Organisation: IT-Happens.de</p>
  * @author Christian.Rybotycky
  */
-public class SqlLiteDatabase extends IDatabaseSession {
+public class SqlLite4JavaDatabase extends IDatabaseSession {
     
     private SQLiteConnection sqlite;
     
-    public SqlLiteDatabase() {    
+    public SqlLite4JavaDatabase() {    
     }
     
     @Override
