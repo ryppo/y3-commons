@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import org.apache.log4j.Logger;
 import org.y3.commons.model.IModel;
 import org.y3.commons.model.IModelFilter;
 import org.y3.commons.model.IModelList;
@@ -20,10 +21,12 @@ import org.y3.commons.model.ISqliteJdbcModelMapper;
  * @author Christian.Rybotycky
  * @version $Id$
 */
-public class SqliteJdbcDatabase extends IDatabaseSession {
+public class SqliteJdbcDatabase implements IDatabaseSession {
     
     private final String driverClass = "org.sqlite.JDBC";
     private final String protocol = "jdbc:sqlite:";
+    
+    public final Logger LOG = Logger.getLogger(SqliteJdbcDatabase.class);
     
     private Connection connection;
 
@@ -61,8 +64,7 @@ public class SqliteJdbcDatabase extends IDatabaseSession {
             ISqliteJdbcModelMapper mapper = (ISqliteJdbcModelMapper) _mapper;
             String sql = mapper.getModelSelectSql(filter);
             if (sql != null) {
-                Statement stmt = connection.createStatement();
-                ResultSet dbResult = stmt.executeQuery(sql);
+                ResultSet dbResult = selectDb(sql);
                 if (dbResult != null && dbResult.next()) {
                     model = mapper.map(dbResult);
                 }
@@ -78,8 +80,7 @@ public class SqliteJdbcDatabase extends IDatabaseSession {
             ISqliteJdbcModelMapper mapper = (ISqliteJdbcModelMapper) _mapper;
             String sql = mapper.getModelsSelectSql(filter);
             if (sql != null) {
-                Statement stmt = connection.createStatement();
-                ResultSet dbResult = stmt.executeQuery(sql);
+                ResultSet dbResult = selectDb(sql);
                 if (dbResult != null) {
                     while (dbResult.next()) {
                         if (modelList == null) {
@@ -91,6 +92,47 @@ public class SqliteJdbcDatabase extends IDatabaseSession {
             }
         }
         return modelList;
+    }
+
+    @Override
+    public void createMissingModelTable(IModelMapper mapper) throws Exception {
+        //check table exists
+        String sql = "SELECT COUNT(*) FROM sqlite_master WHERE type='table' AND name='" + mapper.getDatabaseTableName() + "'";
+        ResultSet dbResult = selectDb(sql);
+        if (dbResult != null && dbResult.next()) {
+            int tableCount = dbResult.getInt(1);
+            if (tableCount == 0) {
+                //create table
+                LOG.debug("createMissingModelTable: " + mapper.getDatabaseTableName());
+                String createSql = mapper.getCreateDatabaseTableSql();
+                int createdTableCount = updateDb(createSql);
+                LOG.debug("table " + mapper.getDatabaseTableName() + "created.");
+            }
+        }
+    }
+
+    @Override
+    public void insertModel(IModelMapper mapper, IModel model) throws Exception {
+        String sql = mapper.getModelInsertSql(model);
+        int updateDb = updateDb(sql);
+    }
+
+    @Override
+    public void updateModel(IModelMapper mapper, IModel model) throws Exception {
+        String sql = mapper.getModelUpdateSql(model);
+        int updateDb = updateDb(sql);
+    }
+    
+    private ResultSet selectDb(String sql) throws SQLException {
+        LOG.debug("selectDb: " + sql);
+        Statement stmt = connection.createStatement();
+        return stmt.executeQuery(sql);
+    }
+    
+    private int updateDb(String sql) throws SQLException {
+        LOG.debug("updateDb: " + sql);
+        Statement stmt = connection.createStatement();
+        return stmt.executeUpdate(sql);
     }
 
 }

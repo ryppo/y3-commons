@@ -17,7 +17,7 @@ import org.y3.commons.model.ISqlite4JavaModelMapper;
  * <p>Organisation: IT-Happens.de</p>
  * @author Christian.Rybotycky
  */
-public class SqlLite4JavaDatabase extends IDatabaseSession {
+public class SqlLite4JavaDatabase implements IDatabaseSession {
     
     private SQLiteConnection sqlite;
     
@@ -80,6 +80,21 @@ public class SqlLite4JavaDatabase extends IDatabaseSession {
             }
         }
         return models;
+    }
+
+    @Override
+    public void createMissingModelTable(IModelMapper mapper) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void insertModel(IModelMapper mapper, IModel model) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void updateModel(IModelMapper mapper, IModel model) throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 
