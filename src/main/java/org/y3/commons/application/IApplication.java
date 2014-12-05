@@ -94,6 +94,8 @@ public abstract class IApplication {
             @Override
             public void windowClosing(WindowEvent e) {
                 try {
+                    //prepare shutdown
+                    beforeShutDown();
                     //save properties
                     PropertiesHelper.saveProperties(UP(), getUserPropertiesLocation(), true);
                 } catch (IOException ex) {

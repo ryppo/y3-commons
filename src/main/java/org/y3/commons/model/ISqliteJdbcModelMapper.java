@@ -2,6 +2,7 @@ package org.y3.commons.model;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import javax.swing.table.TableModel;
 
 /** 
  * <p>Title: org.y3.commons.model - ISqliteJdbcModelMapper</p>
@@ -15,6 +16,8 @@ import java.sql.SQLException;
 public interface ISqliteJdbcModelMapper extends IModelMapper {
     
     public IModel map(ResultSet dbResult) throws SQLException;
+    
+    public TableModel map(IModelList modelList);
     
     public static String sqlString(String sourceString) {
         if (sourceString == null) {

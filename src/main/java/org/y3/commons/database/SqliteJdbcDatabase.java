@@ -21,7 +21,7 @@ import org.y3.commons.model.ISqliteJdbcModelMapper;
  * @author Christian.Rybotycky
  * @version $Id$
 */
-public class SqliteJdbcDatabase implements IDatabaseSession {
+public abstract class SqliteJdbcDatabase implements IDatabaseSession {
     
     private final String driverClass = "org.sqlite.JDBC";
     private final String protocol = "jdbc:sqlite:";
@@ -40,6 +40,8 @@ public class SqliteJdbcDatabase implements IDatabaseSession {
         }
         connection = DriverManager.getConnection(protocol + databaseLocation);
     }
+    
+    public abstract void executeAfterConnect();
 
     @Override
     public boolean isConnected() throws SQLException {
