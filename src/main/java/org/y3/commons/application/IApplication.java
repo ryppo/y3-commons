@@ -77,8 +77,9 @@ public abstract class IApplication {
             LOG().error("Save new properties file to " + getUserPropertiesLocation() + " failed", ex);
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | UnsupportedLookAndFeelException ex) {
             LOG().error(ex);
+        } finally {
+            prepare();
         }
-        prepare();
     }
     
     public abstract void prepare();
@@ -94,6 +95,7 @@ public abstract class IApplication {
             @Override
             public void windowClosing(WindowEvent e) {
                 try {
+                    beforeShutDown();
                     //save properties
                     PropertiesHelper.saveProperties(UP(), getUserPropertiesLocation(), true);
                 } catch (IOException ex) {
