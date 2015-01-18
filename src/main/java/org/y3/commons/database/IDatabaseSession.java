@@ -1,10 +1,10 @@
 package org.y3.commons.database;
 
 import java.sql.SQLException;
-import org.y3.commons.model.IModel;
-import org.y3.commons.model.IModelFilter;
-import org.y3.commons.model.IModelList;
-import org.y3.commons.model.IModelMapper;
+import org.y3.commons.model.IModel_model;
+import org.y3.commons.model.IModel_filter;
+import org.y3.commons.model.IModel_list;
+import org.y3.commons.model.IModel_mapper;
 
 /** 
  * <p>Title: org.y3.commons.database - IDatabaseSession</p>
@@ -26,8 +26,8 @@ public abstract class IDatabaseSession {
     
     public abstract void disconnect() throws SQLException;
     
-    public abstract IModel loadModel(IModelMapper mapper, IModelFilter filter) throws Exception;
+    public abstract IModel_model loadModel(IModel_mapper mapper, IModel_filter filter) throws Exception;
     
-    public abstract IModelList loadModels(IModelMapper mapper, IModelFilter filter) throws Exception;
+    public abstract IModel_list loadModels(IModel_mapper mapper, IModel_filter filter) throws Exception;
     
 }

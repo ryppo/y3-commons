@@ -11,8 +11,8 @@ import com.almworks.sqlite4java.SQLiteStatement;
  * @author Christian.Rybotycky
  * @version $Id$
 */
-public interface ISqlite4JavaModelMapper extends IModelMapper {
+public interface ISqlite4JavaModelMapper extends IModel_mapper {
 
-    public IModel map(SQLiteStatement stmt);
+    public IModel_model map(SQLiteStatement stmt);
     
 }

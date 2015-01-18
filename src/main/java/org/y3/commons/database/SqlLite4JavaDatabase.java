@@ -4,10 +4,10 @@ import com.almworks.sqlite4java.SQLiteConnection;
 import com.almworks.sqlite4java.SQLiteStatement;
 import java.io.File;
 import java.sql.SQLException;
-import org.y3.commons.model.IModel;
-import org.y3.commons.model.IModelFilter;
-import org.y3.commons.model.IModelList;
-import org.y3.commons.model.IModelMapper;
+import org.y3.commons.model.IModel_filter;
+import org.y3.commons.model.IModel_list;
+import org.y3.commons.model.IModel_mapper;
+import org.y3.commons.model.IModel_model;
 import org.y3.commons.model.ISqlite4JavaModelMapper;
 
 /** 
@@ -50,8 +50,8 @@ public class SqlLite4JavaDatabase extends IDatabaseSession {
     }
 
     @Override
-    public IModel loadModel(IModelMapper _mapper, IModelFilter filter) throws Exception {
-        IModel model = null;
+    public IModel_model loadModel(IModel_mapper _mapper, IModel_filter filter) throws Exception {
+        IModel_model model = null;
         if (_mapper instanceof ISqlite4JavaModelMapper) {
             ISqlite4JavaModelMapper mapper = (ISqlite4JavaModelMapper) _mapper;
             String sql = mapper.getModelSelectSql(filter);
@@ -65,8 +65,8 @@ public class SqlLite4JavaDatabase extends IDatabaseSession {
     }
 
     @Override
-    public IModelList loadModels(IModelMapper _mapper, IModelFilter filter) throws Exception {
-        IModelList models = null;
+    public IModel_list loadModels(IModel_mapper _mapper, IModel_filter filter) throws Exception {
+        IModel_list models = null;
         if (_mapper instanceof ISqlite4JavaModelMapper) {
             ISqlite4JavaModelMapper mapper = (ISqlite4JavaModelMapper) _mapper;
             String sql = mapper.getModelsSelectSql(filter);
@@ -74,7 +74,7 @@ public class SqlLite4JavaDatabase extends IDatabaseSession {
             stmt.bindNull(null);
             while (stmt.step()) {
                 if (models == null) {
-                    models = new IModelList();
+                    models = mapper.createModelList();
                 }
                 models.add(mapper.map(stmt));
             }
