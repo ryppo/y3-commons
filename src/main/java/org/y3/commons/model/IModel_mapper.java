@@ -7,7 +7,7 @@ package org.y3.commons.model;
  * <p>Organisation: IT-Happens.de</p>
  * @author Christian.Rybotycky
  */
-public interface IModel_mapper {
+public interface IModel_mapper extends ISqliteJdbcModelMapper {
     
     public String getModelSelectSql(IModel_filter filter);
     

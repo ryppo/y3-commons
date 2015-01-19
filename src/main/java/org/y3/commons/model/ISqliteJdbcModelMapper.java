@@ -11,7 +11,7 @@ import java.sql.ResultSet;
  * @author Christian.Rybotycky
  * @version $Id$
 */
-public interface ISqliteJdbcModelMapper extends IModel_mapper {
+public interface ISqliteJdbcModelMapper {
     
     public IModel_model map(ResultSet dbResult);
 
