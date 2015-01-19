@@ -1,10 +1,12 @@
 package org.y3.commons.database;
 
+import java.math.BigDecimal;
 import java.sql.SQLException;
-import org.y3.commons.model.IModel_model;
+import java.util.Date;
 import org.y3.commons.model.IModel_filter;
 import org.y3.commons.model.IModel_list;
 import org.y3.commons.model.IModel_mapper;
+import org.y3.commons.model.IModel_model;
 
 /** 
  * <p>Title: org.y3.commons.database - IDatabaseSession</p>
@@ -29,5 +31,44 @@ public abstract class IDatabaseSession {
     public abstract IModel_model loadModel(IModel_mapper mapper, IModel_filter filter) throws Exception;
     
     public abstract IModel_list loadModels(IModel_mapper mapper, IModel_filter filter) throws Exception;
+    
+    /**
+     * Convert String to String for SQL usage
+     * @param sourceString string to use in sql
+     * @return "'[sourceString]'", if sourceString null then return null
+     */
+    public static String sqlString(String sourceString) {
+        if (sourceString == null) {
+            return null;
+        } else {
+            return "'" + sourceString + "'";
+        }
+    }
+    
+    /**
+     * Convert BigDecimal to String for SQL usage
+     * @param sourceBigDecimal big decimal to use in sql
+     * @return "'[sourceBigDecimal.toString()]'", if sourceBigDecimal null then return null
+     */
+    public static String sqlString(BigDecimal sourceBigDecimal) {
+        if (sourceBigDecimal == null) {
+            return null;
+        } else {
+            return "'" + sourceBigDecimal.toString() + "'";
+        }
+    }
+    
+    /**
+     * Convert Date to String for SQL usage
+     * @param sourceDate date to use in sql
+     * @return "'[sourceDate.toString()]'", if sourceDate null then return null
+     */
+    public static String sqlString(Date sourceDate) {
+        if (sourceDate == null) {
+            return null;
+        } else {
+            return sqlString(sourceDate.toString());
+        }
+    }
     
 }
