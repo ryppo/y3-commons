@@ -2,8 +2,9 @@ package org.y3.commons.database;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
-import org.y3.commons.model.IModel_filter;
+import org.y3.commons.model.IModelMapper_filter;
 import org.y3.commons.model.IModel_list;
 import org.y3.commons.model.IModel_mapper;
 import org.y3.commons.model.IModel_model;
@@ -28,9 +29,9 @@ public abstract class IDatabaseSession {
     
     public abstract void disconnect() throws SQLException;
     
-    public abstract IModel_model loadModel(IModel_mapper mapper, IModel_filter filter) throws Exception;
+    public abstract IModel_model loadModel(IModel_mapper mapper, IModelMapper_filter filter) throws Exception;
     
-    public abstract IModel_list loadModels(IModel_mapper mapper, IModel_filter filter) throws Exception;
+    public abstract IModel_list loadModels(IModel_mapper mapper, IModelMapper_filter filter) throws Exception;
     
     /**
      * Convert String to String for SQL usage
@@ -70,5 +71,16 @@ public abstract class IDatabaseSession {
             return sqlString(sourceDate.toString());
         }
     }
+    
+    /**
+     * Convert java.util.Date to java.sql.date
+     * @param utilDate date of type java.util.Date
+     * @return date of type java.sql.Date
+     */
+    public static String convertUtilDateToSqlDate(java.util.Date utilDate) {
+	    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	    String sqlDate = sdf.format(utilDate);
+	    return sqlDate;
+	}
     
 }

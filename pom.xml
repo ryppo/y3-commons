@@ -33,12 +33,6 @@
             <version>1.7.7</version>
         </dependency>
         <dependency>
-            <groupId>com.almworks.sqlite4java</groupId>
-            <artifactId>sqlite4java</artifactId>
-            <version>1.0.392</version>
-            <!-- https://code.google.com/p/sqlite4java/ -->
-        </dependency>
-        <dependency>
             <groupId>net.java.dev.designgridlayout</groupId>
             <artifactId>designgridlayout</artifactId>
             <version>1.11</version>
