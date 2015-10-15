@@ -1,6 +1,7 @@
 package org.y3.commons.model;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /** 
  * <p>Title: org.y3.commons.model - ISqliteJdbcModelMapper</p>
@@ -11,8 +12,8 @@ import java.sql.ResultSet;
  * @author Christian.Rybotycky
  * @version $Id$
 */
-public interface ISqliteJdbcModelMapper extends IModel_mapper {
+public interface ISqliteJdbcModelMapper {
     
-    public IModel_model map(ResultSet dbResult);
+    public IModel_model map(ResultSet dbResult) throws SQLException ;
 
 }
